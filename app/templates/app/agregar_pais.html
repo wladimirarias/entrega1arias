@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+
+<form action="" method="post"> 
+    {% csrf_token %}
+
+    {{ formulario.as_p }}
+
+    <input type="submit" value="Cargar País">
+
+</form>
+
+{% endblock %}
