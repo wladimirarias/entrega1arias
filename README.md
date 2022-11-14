@@ -1,4 +1,4 @@
-** Primera Entrega Proyecto Final*
+** Primera Entrega Proyecto Final **
 
 - Para ingresar al proyecto, se debe levantar e ingresar a la ruta /paises, donde se verá el menú inicio del sistema
 
