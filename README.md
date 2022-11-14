@@ -1,6 +1,6 @@
 ** Primera Entrega Proyecto Final **
 
-- Para ingresar al proyecto, se debe levantar e ingresar a la ruta /paises, donde se verá el menú inicio del sistema
+- El proyecto se levanta directamente en el inicio, ya que fue modificado el archivo urls.py en la carpeta proyecto
 
 ** Modo de Uso **
 
