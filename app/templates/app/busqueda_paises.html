@@ -2,6 +2,13 @@
 
 {% block contenido %}
 
+<div class="container d-flex align-items-center flex-column">
+    <h3 class="masthead-heading text-uppercase mb-0">Buscar País</h3>
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+</div>
+
 <form action="{% url 'app-paises-buscar-resultados' %}" method="get">
 
     <p> Nombre País: <input type="text" name="nombre_pais"> <input type="submit" value="Buscar"> </p>
