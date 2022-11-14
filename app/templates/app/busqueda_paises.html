@@ -1,0 +1,11 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+
+<form action="{% url 'app-paises-buscar-resultados' %}" method="get">
+
+    <p> Nombre Pais: <input type="text" name="nombre_pais"> <input type="submit" value="Buscar"> </p>
+
+</form>
+
+{% endblock %}

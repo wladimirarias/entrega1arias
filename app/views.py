@@ -15,6 +15,16 @@ def inicio (request):
 def paises (request):
     return render(request, 'app/agregar_pais.html')
 
+def buscar_pais(request):
+    
+    return render(request, "app/busqueda_paises.html")
+
+def resultados_busqueda_paises(request):
+    nombre_pais = request.GET['nombre_pais']
+
+    paises = Pais.objects.filter(nombre_pais__icontains=nombre_pais)
+    return render(request, "app/resultados_busquedas_paises.html", {"paises": paises})
+
 def creacion_pais(request):
     
     if request.method == 'POST':

@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+
+<ul>
+    <table cellspacing="10" cellpadding="10" border="3">
+        <th>Nombre País</th>
+        <th>Número de Habitantes</th>
+        {% for pais in paises %}
+        <tr>
+            <td>
+                {{pais.nombre_pais}}
+            </td>
+            <td>{{pais.num_habitantes}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</ul>
+
+{% endblock %}
