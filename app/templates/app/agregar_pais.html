@@ -1,5 +1,4 @@
-{% extends 'app/base.html' %}
-{% block contenido %}
+{% extends 'app/base.html' %} {% block contenido %}
 
 <div class="container d-flex align-items-center flex-column">
     <h3 class="masthead-heading text-uppercase mb-0">Agregar País</h3>
@@ -8,13 +7,40 @@
     </div>
 </div>
 
-<form action="" method="post"> 
-    {% csrf_token %}
-
-    {{ formulario.as_p }}
+<form action="" method="post">
+    {% csrf_token %} {{ formulario.as_p }}
 
     <input type="submit" value="Cargar País">
 
 </form>
+
+<div class="container d-flex align-items-center flex-column">
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+    <h3 class="masthead-heading text-uppercase mb-0">Listado de países</h3>
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+</div>
+
+<table cellspacing="10" cellpadding="10" border="2">
+    <thead>
+        <tr>
+            <th>Nombre País</th>
+            <th>Número Habitantes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pais in paises %}
+        <tr>
+            <td>{{ pais.nombre_pais }}</td>
+            <td>{{ pais.num_habitantes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
 
 {% endblock %}

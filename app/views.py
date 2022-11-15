@@ -39,8 +39,13 @@ def creacion_pais(request):
     else:
         formulario = PaisFormulario()
     
+    paises = Pais.objects.all()
+    
+    contexto2 = {"paises":paises}
     contexto = {"formulario":formulario}
-    return render(request, 'app/agregar_pais.html', contexto)
+
+    nuevo_contexto = {**contexto, **contexto2}
+    return render(request, 'app/agregar_pais.html', nuevo_contexto)
 
 def continentes (request):
     return render(request, 'app/agregar_continente.html')
