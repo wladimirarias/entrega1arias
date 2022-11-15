@@ -1,6 +1,4 @@
-{% extends 'app/base.html' %}
-
-{% block contenido %}
+{% extends 'app/base.html' %} {% block contenido %}
 
 <div class="container d-flex align-items-center flex-column">
     <h3 class="masthead-heading text-uppercase mb-0">Agregar Continente</h3>
@@ -9,13 +7,41 @@
     </div>
 </div>
 
-<form action="" method="post"> 
-    {% csrf_token %}
-
-    {{ formulario.as_p }}
+<form action="" method="post">
+    {% csrf_token %} {{ formulario.as_p }}
 
     <input type="submit" value="Cargar Continente">
 
 </form>
+
+<div class="container d-flex align-items-center flex-column">
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+    <h3 class="masthead-heading text-uppercase mb-0">Listado de Continentes</h3>
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+</div>
+
+<table cellspacing="10" cellpadding="10" border="2">
+    <thead>
+        <tr>
+            <th>Nombre Continente</th>
+            <th>Nivel Economía</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for continente in continentes %}
+        <tr>
+            <td>{{ continente.nombre_continente }}</td>
+            <td>{{ continente.nivel_economia }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
 
 {% endblock %}

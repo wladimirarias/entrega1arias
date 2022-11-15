@@ -64,8 +64,13 @@ def creacion_continente(request):
     else:
         formulario = ContinenteFormulario()
     
+    continentes = Continente.objects.all()
+    
+    contexto2 = {"continentes":continentes}
     contexto = {"formulario":formulario}
-    return render(request, 'app/agregar_continente.html', contexto)
+
+    nuevo_contexto = {**contexto, **contexto2}
+    return render(request, 'app/agregar_continente.html', nuevo_contexto)
 
 def idiomas (request):
     return render(request, 'app/agregar_idioma.html')
@@ -84,5 +89,10 @@ def creacion_idioma(request):
     else:
         formulario = IdiomaFormulario()
     
+    idiomas = Idioma.objects.all()
+
+    contexto2 = {"idiomas":idiomas}    
     contexto = {"formulario":formulario}
-    return render(request, 'app/agregar_idioma.html', contexto)
+    
+    nuevo_contexto = {**contexto, **contexto2}
+    return render(request, 'app/agregar_idioma.html', nuevo_contexto)

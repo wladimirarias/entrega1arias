@@ -1,6 +1,4 @@
-{% extends 'app/base.html' %}
-
-{% block contenido %}
+{% extends 'app/base.html' %} {% block contenido %}
 
 <div class="container d-flex align-items-center flex-column">
     <h3 class="masthead-heading text-uppercase mb-0">Agregar Idioma</h3>
@@ -9,13 +7,40 @@
     </div>
 </div>
 
-<form action="" method="post"> 
-    {% csrf_token %}
-
-    {{ formulario.as_p }}
+<form action="" method="post">
+    {% csrf_token %} {{ formulario.as_p }}
 
     <input type="submit" value="Cargar Idioma">
 
 </form>
+
+<div class="container d-flex align-items-center flex-column">
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+    <h3 class="masthead-heading text-uppercase mb-0">Listado de Idiomas</h3>
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+    </div>
+</div>
+
+<table cellspacing="10" cellpadding="10" border="2">
+    <thead>
+        <tr>
+            <th>Nombre Idioma</th>
+            <th>Origen Idioma</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for idioma in idiomas %}
+        <tr>
+            <td>{{ idioma.nombre_idioma }}</td>
+            <td>{{ idioma.origen_idioma }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
 
 {% endblock %}
