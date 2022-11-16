@@ -39,7 +39,7 @@ def creacion_pais(request):
     else:
         formulario = PaisFormulario()
     
-    paises = Pais.objects.all()
+    paises = Pais.objects.all().order_by('nombre_pais')
     
     contexto2 = {"paises":paises}
     contexto = {"formulario":formulario}
@@ -64,7 +64,7 @@ def creacion_continente(request):
     else:
         formulario = ContinenteFormulario()
     
-    continentes = Continente.objects.all()
+    continentes = Continente.objects.all().order_by('nombre_continente')
     
     contexto2 = {"continentes":continentes}
     contexto = {"formulario":formulario}
@@ -89,7 +89,7 @@ def creacion_idioma(request):
     else:
         formulario = IdiomaFormulario()
     
-    idiomas = Idioma.objects.all()
+    idiomas = Idioma.objects.all().order_by('nombre_idioma')
 
     contexto2 = {"idiomas":idiomas}    
     contexto = {"formulario":formulario}
