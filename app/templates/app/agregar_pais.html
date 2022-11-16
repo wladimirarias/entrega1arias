@@ -33,7 +33,7 @@
     </thead>
 
     <tbody>
-        {% for pais in paises %}
+        {% for pais in entity %}
         <tr>
             <td>{{ pais.nombre_pais }}</td>
             <td>{{ pais.num_habitantes }}</td>
@@ -42,5 +42,13 @@
     </tbody>
 
 </table>
+
+<div class="divider-custom divider-light">
+    <div class="divider-custom-line"></div>
+</div>
+
+<div>
+    {% include 'app/paginator.html' %}
+</div>
 
 {% endblock %}

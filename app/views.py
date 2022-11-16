@@ -6,7 +6,8 @@ from app.models import Idioma
 from app.forms import PaisFormulario
 from app.forms import ContinenteFormulario
 from app.forms import IdiomaFormulario
-
+from django.core.paginator import Paginator
+from django.http import Http404
 # Create your views here.
 
 def inicio (request):
@@ -26,7 +27,7 @@ def resultados_busqueda_paises(request):
     return render(request, 'app/resultados_busquedas_paises.html', {"paises": paises})
 
 def creacion_pais(request):
-    
+
     if request.method == 'POST':
         formulario = PaisFormulario(request.POST)
 
@@ -38,10 +39,18 @@ def creacion_pais(request):
         return render(request, 'app/index.html')
     else:
         formulario = PaisFormulario()
-    
+
     paises = Pais.objects.all().order_by('nombre_pais')
+    page = request.GET.get('page', 1)
+
+    try:
+        paginator = Paginator(paises, 5)
+        paises = paginator.page(page)
+    except:
+        raise Http404
     
-    contexto2 = {"paises":paises}
+    # contexto2 = {"paises":paises} **CÓDIGO ORIGINAL, SE CAMBIÓ POR PAGINADOR
+    contexto2 = {"entity":paises, "paginator":paginator}
     contexto = {"formulario":formulario}
 
     nuevo_contexto = {**contexto, **contexto2}
@@ -91,7 +100,7 @@ def creacion_idioma(request):
     
     idiomas = Idioma.objects.all().order_by('nombre_idioma')
 
-    contexto2 = {"idiomas":idiomas}    
+    contexto2 = {"idiomas":idiomas} 
     contexto = {"formulario":formulario}
     
     nuevo_contexto = {**contexto, **contexto2}
