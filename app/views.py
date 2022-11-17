@@ -1,11 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from app.models import Pais
-from app.models import Continente
-from app.models import Idioma
-from app.forms import PaisFormulario
-from app.forms import ContinenteFormulario
-from app.forms import IdiomaFormulario
+from app.models import Pais, Continente, Idioma
+from app.forms import PaisFormulario, ContinenteFormulario, IdiomaFormulario
 from django.core.paginator import Paginator
 from django.http import Http404
 # Create your views here.
@@ -55,6 +51,31 @@ def creacion_pais(request):
 
     nuevo_contexto = {**contexto, **contexto2}
     return render(request, 'app/agregar_pais.html', nuevo_contexto)
+
+def edit_pais(request, id):
+    pais = Pais.objects.get(id=id)
+
+    if request.method == 'POST':
+        formulario = PaisFormulario(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+
+            pais.nombre_pais = data["nombre_pais"]
+            pais.num_habitantes = data["numero_habitantes"]
+            pais.save()
+            return redirect(creacion_pais)
+        else:
+            return render(request, "app/editar_pais.html", {"formulario": formulario, "errores":formulario.errors})
+    else:
+        formulario = PaisFormulario(initial={"nombre_pais":pais.nombre_pais, "numero_habitantes":pais.num_habitantes})
+        return render(request, "app/editar_pais.html", {"formulario":formulario, "errores": ""})
+
+def eliminar_pais(request, id):
+    pais = Pais.objects.get(id=id)
+    pais.delete()
+
+    return redirect(creacion_pais)
 
 def continentes (request):
     return render(request, 'app/agregar_continente.html')

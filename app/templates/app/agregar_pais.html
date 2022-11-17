@@ -37,6 +37,8 @@
         <tr>
             <td>{{ pais.nombre_pais }}</td>
             <td>{{ pais.num_habitantes }}</td>
+            <td><a href="{% url 'app-paises-editar' pais.id %}">Editar</a></td>
+            <td><a href="#">Eliminar</a></td>
         </tr>
         {% endfor %}
     </tbody>
