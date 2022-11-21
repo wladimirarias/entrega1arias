@@ -33,15 +33,24 @@
     </thead>
 
     <tbody>
-        {% for continente in continentes %}
+        {% for continente in entity %}
         <tr>
             <td>{{ continente.nombre_continente }}</td>
             <td>{{ continente.nivel_economia }}</td>
+            <td><a href="{% url 'app-continentes-editar' continente.id %}">Editar</a></td>
+            <td><a href="{% url 'app-continentes-borrar' continente.id %}">Eliminar</a></td>
         </tr>
         {% endfor %}
     </tbody>
 
 </table>
 
+<div class="divider-custom divider-light">
+    <div class="divider-custom-line"></div>
+</div>
+
+<div>
+    {% include 'app/paginator.html' %}
+</div>
 
 {% endblock %}

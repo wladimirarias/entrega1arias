@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %} {% block contenido %}
+
+<h1>Lista de países</h1>
+
+<h4><a href="#">Agregar nuevo País</a></h4>
+<p></p>
+<table cellspacing="10" cellpadding="10" border="2">
+    <thead>
+        <tr>
+            <th>Nombre País</th>
+            <th>Número Habitantes</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pais in object_list %}
+        <tr>
+            <td>{{ pais.nombre_pais }}</td>
+            <td>{{ pais.num_habitantes }}</td>
+            <td><a href="#">Editar</a> <a href="#">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<div class="divider-custom divider-light">
+    <div class="divider-custom-line"></div>
+</div>
+
+<div>
+    {% include 'app/paginator_django.html' %}
+</div>
+
+{% endblock %}

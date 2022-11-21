@@ -33,14 +33,24 @@
     </thead>
 
     <tbody>
-        {% for idioma in idiomas %}
+        {% for idioma in entity %}
         <tr>
             <td>{{ idioma.nombre_idioma }}</td>
             <td>{{ idioma.origen_idioma }}</td>
+            <td><a href="{% url 'app-idiomas-editar' idioma.id %}">Editar</a></td>
+            <td><a href="{% url 'app-idiomas-borrar' idioma.id %}">Eliminar</a></td>
         </tr>
         {% endfor %}
     </tbody>
 
 </table>
+
+<div class="divider-custom divider-light">
+    <div class="divider-custom-line"></div>
+</div>
+
+<div>
+    {% include 'app/paginator.html' %}
+</div>
 
 {% endblock %}

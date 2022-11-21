@@ -9,8 +9,16 @@ urlpatterns = [
     path("paises/actualizar/<id>/", edit_pais, name="app-paises-editar"),
     path("paises/borrar/<id>/", eliminar_pais, name="app-paises-borrar"),
     path("paises/buscar/resultados", resultados_busqueda_paises, name="app-paises-buscar-resultados"),
-    path("contienentes/", continentes, name="app-continentes"),
+    path("continentes/", continentes, name="app-continentes"),
+    path("continentes/actualizar/<id>/", edit_continente, name="app-continentes-editar"),
+    path("continentes/borrar/<id>/", eliminar_continente, name="app-continentes-borrar"),
     path("continentes/crear/", creacion_continente, name="app-continentes-crear"),
     path("idiomas/", idiomas, name="app-idiomas"),
-    path("idiomas/crear/", creacion_idioma, name="app-idiomas-crear")
+    path("idiomas/actualizar/<id>/", edit_idioma, name="app-idiomas-editar"),
+    path("idiomas/borrar/<id>", eliminar_idioma, name="app-idiomas-borrar"),
+    path("idiomas/crear/", creacion_idioma, name="app-idiomas-crear"),
+
+    #Definición rutas VBC
+
+    path("paisesvbc/", PaisesList.as_view(), name="app-paisesvbc")
 ]
