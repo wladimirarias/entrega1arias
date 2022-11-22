@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %} {% block contenido %}
+
+<form method="post">
+
+    {% csrf_token %}
+    <p>
+        ¿Estás seguro que quieres borrar el país: '{{ object.nombre_pais }}'?
+        <input type="submit" value="Sí">
+    </p>
+
+</form>
+
+{% endblock %}

@@ -2,7 +2,7 @@
 
 <h1>Lista de países</h1>
 
-<h4><a href="#">Agregar nuevo País</a></h4>
+<h4><a href="{% url 'app-paisesvbc-create' %}">Agregar nuevo País</a></h4>
 <p></p>
 <table cellspacing="10" cellpadding="10" border="2">
     <thead>
@@ -18,7 +18,11 @@
         <tr>
             <td>{{ pais.nombre_pais }}</td>
             <td>{{ pais.num_habitantes }}</td>
-            <td><a href="#">Editar</a> <a href="#">Eliminar</a></td>
+            <td>
+                <a href="{% url 'app-paisesvbc-detail' pais.id %}">Detalle</a>
+                <a href="{% url 'app-paisesvbc-update' pais.id %}">Editar</a>
+                <a href="{% url 'app-paisesvbc-delete' pais.id %}">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

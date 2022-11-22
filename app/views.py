@@ -8,6 +8,14 @@ from django.http import Http404
 #Import vistas basadas en Clases
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+#Imports de Login
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, authenticate
+
+#Protección para sesiones
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 # Creación vistas
 
 def inicio (request):
@@ -203,3 +211,47 @@ class PaisesList(ListView):
     model = Pais
     template_name = "app/paises_list.html"
     paginate_by = 4
+
+class PaisesDetail(DetailView):
+    model = Pais
+    template_name = "app/paises_detail.html"
+
+class PaisesCreate(CreateView):
+    model = Pais
+    success_url = "/paisesvbc/"
+    fields = ["nombre_pais", "num_habitantes"]
+    template_name = "app/paises_form.html"
+
+class PaisesUpdate(UpdateView):
+    model = Pais
+    success_url = "/paisesvbc/"
+    fields = ["nombre_pais", "num_habitantes"]
+    template_name = "app/paises_form.html"
+
+class PaisesDelete(DeleteView):
+    model = Pais
+    success_url = "/paisesvbc/"
+    template_name = "app/paises_confirm_delete.html"
+
+#Funciones para Login
+
+def iniciar_sesion(request):
+    errors = ""
+
+    if request.method == 'POST':
+        formulario = AuthenticationForm(request, data = request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            user = authenticate(username=data["username"], password=data["password"])
+
+            if user is not None:
+                login(request, user)
+                return redirect("app-inicio")
+            else:
+                return render(request, "app/login.html", {"form": formulario, "errors": "Credenciales Inválidas"})
+        else:
+            return render(request, "app/login.html", {"form": formulario, "errors": errors})
+
+    formulario = AuthenticationForm()
+    return render(request, "app/login.html", {"form": formulario, "errors": errors})
