@@ -29,6 +29,7 @@
         <tr>
             <th>Nombre Continente</th>
             <th>Nivel Economía</th>
+            <th>Acciones</th>
         </tr>
     </thead>
 
@@ -37,8 +38,7 @@
         <tr>
             <td>{{ continente.nombre_continente }}</td>
             <td>{{ continente.nivel_economia }}</td>
-            <td><a href="{% url 'app-continentes-editar' continente.id %}">Editar</a></td>
-            <td><a href="{% url 'app-continentes-borrar' continente.id %}">Eliminar</a></td>
+            <td><a href="{% url 'app-continentes-editar' continente.id %}">Editar</a> - <a href="{% url 'app-continentes-borrar' continente.id %}">Eliminar</a></td>
         </tr>
         {% endfor %}
     </tbody>

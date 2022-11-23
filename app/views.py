@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from app.models import Pais, Continente, Idioma
-from app.forms import PaisFormulario, ContinenteFormulario, IdiomaFormulario
+from app.forms import PaisFormulario, ContinenteFormulario, IdiomaFormulario, UserRegisterForm
 from django.core.paginator import Paginator
 from django.http import Http404
 
@@ -18,22 +18,27 @@ from django.contrib.auth.decorators import login_required
 
 # Creación vistas
 
+#@login_required
 def inicio (request):
     return render(request, 'app/index.html')
 
+@login_required
 def paises (request):
     return render(request, 'app/agregar_pais.html')
 
+@login_required
 def buscar_pais(request):
     
     return render(request, 'app/busqueda_paises.html')
 
+@login_required
 def resultados_busqueda_paises(request):
     nombre_pais = request.GET['nombre_pais']
 
     paises = Pais.objects.filter(nombre_pais__icontains=nombre_pais)
     return render(request, 'app/resultados_busquedas_paises.html', {"paises": paises})
 
+@login_required
 def creacion_pais(request):
 
     if request.method == 'POST':
@@ -64,6 +69,7 @@ def creacion_pais(request):
     nuevo_contexto = {**contexto, **contexto2}
     return render(request, 'app/agregar_pais.html', nuevo_contexto)
 
+@login_required
 def edit_pais(request, id):
     pais = Pais.objects.get(id=id)
 
@@ -83,15 +89,18 @@ def edit_pais(request, id):
         formulario = PaisFormulario(initial={"nombre_pais":pais.nombre_pais, "numero_habitantes":pais.num_habitantes})
         return render(request, "app/editar_pais.html", {"formulario":formulario, "errores": ""})
 
+@login_required
 def eliminar_pais(request, id):
     pais = Pais.objects.get(id=id)
     pais.delete()
 
     return redirect(creacion_pais)
 
+@login_required
 def continentes (request):
     return render(request, 'app/agregar_continente.html')
 
+@login_required
 def creacion_continente(request):
     
     if request.method == 'POST':
@@ -122,6 +131,7 @@ def creacion_continente(request):
     nuevo_contexto = {**contexto, **contexto2}
     return render(request, 'app/agregar_continente.html', nuevo_contexto)
 
+@login_required
 def edit_continente(request, id):
     continente = Continente.objects.get(id=id)
 
@@ -141,15 +151,18 @@ def edit_continente(request, id):
         formulario = ContinenteFormulario(initial={"nombre_continente":continente.nombre_continente, "nivel_economia":continente.nivel_economia})
         return render(request, "app/editar_continente.html", {"formulario":formulario, "errores":""})
 
+@login_required
 def eliminar_continente(request, id):
     continente = Continente.objects.get(id=id)
     continente.delete()
 
     return redirect(creacion_continente)
 
+@login_required
 def idiomas (request):
     return render(request, 'app/agregar_idioma.html')
 
+@login_required
 def creacion_idioma(request):
 
     if request.method == 'POST':
@@ -180,6 +193,7 @@ def creacion_idioma(request):
     nuevo_contexto = {**contexto, **contexto2}
     return render(request, 'app/agregar_idioma.html', nuevo_contexto)
 
+@login_required
 def edit_idioma(request, id):
     idioma = Idioma.objects.get(id=id)
 
@@ -199,6 +213,7 @@ def edit_idioma(request, id):
         formulario = IdiomaFormulario(initial={"nombre_idioma":idioma.nombre_idioma, "origen_idioma":idioma.origen_idioma})
         return render(request, "app/editar_idioma.html", {"formulario":formulario, "errores": ""})
 
+@login_required
 def eliminar_idioma(request, id):
     idioma = Idioma.objects.get(id=id)
     idioma.delete()
@@ -207,28 +222,28 @@ def eliminar_idioma(request, id):
 
 #Creación vistas basadas en clases
 
-class PaisesList(ListView):
+class PaisesList(LoginRequiredMixin, ListView):
     model = Pais
     template_name = "app/paises_list.html"
     paginate_by = 4
 
-class PaisesDetail(DetailView):
+class PaisesDetail(LoginRequiredMixin, DetailView):
     model = Pais
     template_name = "app/paises_detail.html"
 
-class PaisesCreate(CreateView):
+class PaisesCreate(LoginRequiredMixin, CreateView):
     model = Pais
     success_url = "/paisesvbc/"
     fields = ["nombre_pais", "num_habitantes"]
     template_name = "app/paises_form.html"
 
-class PaisesUpdate(UpdateView):
+class PaisesUpdate(LoginRequiredMixin, UpdateView):
     model = Pais
     success_url = "/paisesvbc/"
     fields = ["nombre_pais", "num_habitantes"]
     template_name = "app/paises_form.html"
 
-class PaisesDelete(DeleteView):
+class PaisesDelete(LoginRequiredMixin, DeleteView):
     model = Pais
     success_url = "/paisesvbc/"
     template_name = "app/paises_confirm_delete.html"
@@ -255,3 +270,16 @@ def iniciar_sesion(request):
 
     formulario = AuthenticationForm()
     return render(request, "app/login.html", {"form": formulario, "errors": errors})
+
+def registrar_usuario(request):
+    if request.method == "POST":
+        formulario = UserRegisterForm(request.POST)
+
+        if formulario.is_valid():
+            formulario.save()
+            return redirect("app-inicio")
+        else:
+            return render(request, "app/register.html", {"form": formulario , "errors": formulario.errors})
+    
+    formulario = UserRegisterForm()
+    return render(request, "app/register.html", {"form": formulario})

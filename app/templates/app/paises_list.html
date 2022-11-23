@@ -19,8 +19,8 @@
             <td>{{ pais.nombre_pais }}</td>
             <td>{{ pais.num_habitantes }}</td>
             <td>
-                <a href="{% url 'app-paisesvbc-detail' pais.id %}">Detalle</a>
-                <a href="{% url 'app-paisesvbc-update' pais.id %}">Editar</a>
+                <a href="{% url 'app-paisesvbc-detail' pais.id %}">Detalle</a> -
+                <a href="{% url 'app-paisesvbc-update' pais.id %}">Editar</a> -
                 <a href="{% url 'app-paisesvbc-delete' pais.id %}">Eliminar</a>
             </td>
         </tr>

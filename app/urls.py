@@ -1,5 +1,6 @@
 from django.urls import path
 from app.views import *
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path("inicio/", inicio,  name="app-inicio"),
@@ -19,7 +20,6 @@ urlpatterns = [
     path("idiomas/crear/", creacion_idioma, name="app-idiomas-crear"),
 
     #Definición rutas VBC
-
     path("paisesvbc/", PaisesList.as_view(), name="app-paisesvbc"),
     path("paisesvbc/detalle/<pk>/", PaisesDetail.as_view(), name="app-paisesvbc-detail"),
     path("paisesvbc/crear/", PaisesCreate.as_view(), name="app-paisesvbc-create"),
@@ -27,5 +27,7 @@ urlpatterns = [
     path("paisesvbc/borrar/<pk>/", PaisesDelete.as_view(), name="app-paisesvbc-delete"),
 
     #Rutas para Login
-    path("login/", iniciar_sesion, name="auth-login")
+    path("", iniciar_sesion, name="auth-login"),
+    path("register/", registrar_usuario, name="auth-register"),
+    path("logout/", LogoutView.as_view(template_name="app/logout.html"), name="auth-logout")
 ]
