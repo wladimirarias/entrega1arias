@@ -15,6 +15,7 @@ class IdiomaFormulario(forms.Form):
     origen_idioma = forms.CharField()
 
 class UserRegisterForm(UserCreationForm):
+    username = forms.CharField(label="Usuario")
     last_name = forms.CharField(label="Apellido")
     first_name = forms.CharField(label="Nombre")
     email = forms.EmailField(label="Correo Electrónico")
@@ -24,3 +25,4 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "last_name", "first_name", "password1", "password2"]
+        help_texts = {k: "" for k in fields}

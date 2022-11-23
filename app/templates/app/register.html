@@ -1,16 +1,14 @@
-{% extends 'app/base.html' %}
-{% block contenido %}
-{% if errors %}
-    <p style="color: red;">Errores en el registro de usuario: {{ errors }}</p>
+{% extends 'app/base.html' %} {% block contenido %} {% if errors %}
+<p style="color: red;">Errores en el registro de usuario: {{ errors }}</p>
 {% endif %}
-
+<h1>Registro de Usuario</h1>
+<p> </p>
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    {% csrf_token %} {{ form.as_p }}
 
     <input type="submit" value="Registrar Usuario">
 </form>
-
+<p> </p>
 <p>¿Ya tienes cuenta? <a href="{% url 'auth-login' %}">Inicia Sesión</a> </p>
 
 {% endblock %}
