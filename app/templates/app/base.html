@@ -20,22 +20,26 @@
             <a class="navbar-brand" href="{% url 'app-inicio' %}">Países | Inicio</a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'app-paises-buscar' %}">Buscar País</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'app-paises-crear' %}">Agregar País</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'app-continentes-crear' %}">Agregar Continente</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'app-idiomas-crear' %}">Agregar Idioma</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'app-paisesvbc' %}">Países (VBC)</a></li>
-                    
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-1 px-0 px-lg-1 rounded" href="{% url 'app-paises-buscar' %}">Buscar País</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-1 px-0 px-lg-1 rounded" href="{% url 'app-paises-crear' %}">Agregar País</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-1 px-0 px-lg-1 rounded" href="{% url 'app-continentes-crear' %}">Agregar Continente</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-1 px-0 px-lg-1 rounded" href="{% url 'app-idiomas-crear' %}">Agregar Idioma</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-1 px-0 px-lg-1 rounded" href="{% url 'app-paisesvbc' %}">Países (VBC)</a></li>
+
                     {% if request.user.is_authenticated %}
-                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary" href="{% url 'auth-logout' %}">Logout</a></li>
+                    <p class="small text-muted mb-4 mb-lg-0">Hola {{request.user.username}}!</p>
+                    <img src="{{imagen_url}}" style="max-width: 55px;">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary" href="{% url 'auth-logout' %}">Logout</a></li>
                     {% else %}
-                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary" href="{% url 'auth-login' %}">Login</a></li>
+                    <p class="small text-muted mb-4 mb-lg-0">Hola Visitante!</p>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary" href="{% url 'auth-login' %}">Login</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
     <header class="masthead bg-primary text-white text-center">
+
         <div class="container d-flex align-items-center flex-column">
             <h1 class="masthead-heading text-uppercase mb-0">Información General</h1>
             <div class="divider-custom divider-light">

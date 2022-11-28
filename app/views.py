@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from app.models import Pais, Continente, Idioma
-from app.forms import PaisFormulario, ContinenteFormulario, IdiomaFormulario, UserRegisterForm
+from app.models import Pais, Continente, Idioma, Avatar
+from app.forms import PaisFormulario, ContinenteFormulario, IdiomaFormulario, UserRegisterForm, UserEditForm, AvatarForm
 from django.core.paginator import Paginator
 from django.http import Http404
+
+#Dependencia para resolver apertura de archivos usando rutas relativas
+from proyecto.settings import BASE_DIR
+import os
 
 #Import vistas basadas en Clases
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -20,7 +24,13 @@ from django.contrib.auth.decorators import login_required
 
 #@login_required
 def inicio (request):
-    return render(request, 'app/index.html')
+
+    if request.user.is_authenticated:
+        imagen_model = Avatar.objects.filter(user=request.user.id).order_by("-id")[0]
+        imagen_url = imagen_model.imagen.url
+    else:
+        imagen_url = ""
+    return render(request, 'app/index.html', {"imagen_url": imagen_url})
 
 @login_required
 def paises (request):
@@ -283,3 +293,47 @@ def registrar_usuario(request):
     
     formulario = UserRegisterForm()
     return render(request, "app/register.html", {"form": formulario})
+
+@login_required
+def editar_perfil(request):
+
+    usuario = request.user
+
+    if request.method == 'POST':
+
+        formulario = UserEditForm(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+
+            usuario.email = data["email"]
+            usuario.first_name = data["first_name"]
+            usuario.last_name = data["last_name"]
+            usuario.save()
+
+            return redirect("app-inicio")
+        else:
+            return render(request, "app/editar_perfil.html", {"form": formulario, "errors": formulario.errors})
+    else:
+        formulario = UserEditForm(initial={"email":usuario.email, "first_name": usuario.first_name, "last_name": usuario.last_name})
+    
+    return render(request, "app/editar_perfil.html", {"form": formulario})
+
+@login_required
+def agregar_avatar(request):
+
+    if request.method == 'POST':
+        formulario = AvatarForm(request.POST, request.FILES)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            usuario = request.user
+            avatar = Avatar(user=usuario, imagen=data["imagen"])
+            avatar.save()
+            return redirect("app-inicio")
+        else:
+            return render(request, "app/agregar_avatar.html", {"form": formulario, "errors": formulario.errors})
+    
+    formulario = AvatarForm()
+
+    return render(request, "app/agregar_avatar.html", {"form": formulario})

@@ -1,22 +1,26 @@
-{% extends 'app/base.html' %} {% block contenido %}
+{% extends 'app/base.html' %} {% block contenido %} {% if request.user.is_authenticated %}
 
-{% if request.user.is_authenticated %}
+<p><a class="btn btn-primary" href="{% url 'auth-editar-perfil' %}">Modificar Perfil</a> <a class="btn btn-primary" href="{% url 'auth-avatar' %}">Actualizar Avatar</a></p>
 
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Bienvenido/a </h2>
-    <p></p>
-    <h3 style="text-transform: capitalize;"> {{ request.user }} </h3>
-    <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-        <div class="divider-custom-line"></div>
-    </div>
+<div class="divider-custom divider-light">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
+
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Bienvenido/a </h2>
+<p></p>
+<h3 style="text-transform: capitalize;"> {{ request.user }} </h3>
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
 
 {% else %}
 
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Permiso Denegado </h2>
-    <p> </p>
-    <h3>Debe iniciar sesión </h3>
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Permiso Denegado </h2>
+<p> </p>
+<h3>Debe iniciar sesión </h3>
 
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

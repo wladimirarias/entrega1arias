@@ -7,3 +7,4 @@ from app.models import *
 admin.site.register(Pais)
 admin.site.register(Continente)
 admin.site.register(Idioma)
+admin.site.register(Avatar)
